@@ -2,7 +2,7 @@ from kedro.pipeline import Pipeline, node, pipeline
 
 from .nodes import evaluate_model, split_data, train_model
 
-from spaceflights_dynamic import settings
+from spacelfights_dynamic import settings
 
 
 def create_pipeline(**kwargs) -> Pipeline:
