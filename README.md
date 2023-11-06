@@ -1,4 +1,6 @@
-# spacelfights_dynamic
+# Spaceflights tutorial with dynamic pipelines
+
+Tutorial: https://getindata.com/blog/kedro-dynamic-pipelines/
 
 ## Overview
 
