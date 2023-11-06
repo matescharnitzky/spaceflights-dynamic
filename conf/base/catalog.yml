@@ -61,11 +61,11 @@ preprocessed_shuttles:
   type: pandas.ParquetDataset
   filepath: data/02_intermediate/preprocessed_shuttles.pq
 
-model_input_table:
-  type: pandas.ParquetDataset
-  filepath: data/03_primary/model_input_table.pq
+"{namespace}.model_input_table":
+  type: pandas.ParquetDataSet
+  filepath: data/03_primary/{namespace}/model_input_table.pq
 
-regressor:
-  type: pickle.PickleDataset
-  filepath: data/06_models/regressor.pickle
+"{namespace}.{variant}.regressor":
+  type: pickle.PickleDataSet
+  filepath: data/06_models/{namespace}/{variant}/regressor.pickle
   versioned: true

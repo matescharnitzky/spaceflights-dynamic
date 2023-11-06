@@ -2,9 +2,11 @@ from kedro.pipeline import Pipeline, node, pipeline
 
 from .nodes import evaluate_model, split_data, train_model
 
+from spacelfights_dynamic import settings
+
 
 def create_pipeline(**kwargs) -> Pipeline:
-    return pipeline(
+    data_science_pipeline = pipeline(
         [
             node(
                 func=split_data,
@@ -26,3 +28,15 @@ def create_pipeline(**kwargs) -> Pipeline:
             ),
         ]
     )
+    pipes = []
+    for namespace, variants in settings.DYNAMIC_PIPELINES_MAPPING.items():
+        for variant in variants:
+            pipes.append(
+                pipeline(
+                    data_science_pipeline,
+                    inputs={"model_input_table": f"{namespace}.model_input_table"},
+                    namespace=f"{namespace}.{variant}",
+                    tags=[variant, namespace],
+                )
+            )
+    return sum(pipes)

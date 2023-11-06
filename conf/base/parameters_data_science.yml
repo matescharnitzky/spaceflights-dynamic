@@ -1,6 +1,9 @@
+# The model_options below are "base" options for all pipelines
+
 model_options:
   test_size: 0.2
   random_state: 3
+  target: costs
   features:
     - engines
     - passenger_capacity
@@ -10,3 +13,40 @@ model_options:
     - iata_approved
     - company_rating
     - review_scores_rating
+  model: sklearn.linear_model.LinearRegression
+  model_params: {}
+
+# -------------------------------
+# Pipeline-specific configuration
+
+price_predictor:
+  _overrides:
+    target: price
+  model_options: ${merge:${model_options},${._overrides}}
+
+  base:
+    model_options: ${..model_options}
+  
+  candidate1:
+    _overrides:
+      features:
+      - engines
+      - passenger_capacity
+      - crew
+      - d_check_complete
+      - company_rating
+    model_options: ${merge:${..model_options},${._overrides}}
+
+  candidate2:
+    _overrides:
+      model_params:
+        gamma: 2.5
+    model_options: ${merge:${..model_options},${._overrides}}
+
+  candidate3:
+    _overrides:
+      model: sklearn.ensemble.RandomForestRegressor
+      model_params:
+        max_depth: 1.0
+
+    model_options: ${merge:${..model_options},${._overrides}}
