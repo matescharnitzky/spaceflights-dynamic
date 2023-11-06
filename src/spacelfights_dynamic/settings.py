@@ -70,3 +70,8 @@ CONFIG_LOADER_ARGS = {
         "merge": merge_dicts,
      }
 }
+
+DYNAMIC_PIPELINES_MAPPING = {
+    "reviews_predictor": ["base", "test1"],
+    "price_predictor": ["base", "candidate1", "candidate2", "candidate3"],
+}
